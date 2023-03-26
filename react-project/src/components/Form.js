@@ -17,7 +17,7 @@ const Form = ({ addTask }) => {
     return (
         <form onSubmit={handleSubmit}>
             <input value={userInput} type="text" onChange={handleChange} placeholder="Enter task..." />
-            <button>Submit</button>
+            <button type='submit'>Submit</button>
         </form>
     );
 };
