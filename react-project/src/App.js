@@ -4,12 +4,13 @@ import axios from "axios";
 import Header from "./components/Header";
 import Todo from "./components/Todo";
 import Form from './components/Form';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
+
+  //#region Server
   const baseURL = "https://dummyjson.com/todos/";
   const userId = 5;
-
-  const [todoList, setToDoList] = useState([]);
 
   const fetchList = () => {
     axios.get(baseURL)
@@ -23,7 +24,7 @@ function App() {
   }
 
   const completeTask = (id) => {
-    let url = baseURL + id
+    const url = baseURL + id
     let status = todoList.find(task => { return task.id == id; }).completed
     axios.put(url, { completed: !status })
       .then((response) => {
@@ -37,7 +38,7 @@ function App() {
   }
 
   const addNewTask = (name) => {
-    let url = baseURL + "add"
+    const url = baseURL + "add"
     axios.post(url, { todo: name, completed: false, userId: userId })
       .then((response) => {
         let created = response.data
@@ -49,15 +50,20 @@ function App() {
       });
   }
 
+  //#endregion
+
+  const [todoList, setToDoList] = useState([]);
+
   useEffect(() => { fetchList() }, []);
 
   const handleToggle = (id) => {
     completeTask(id)
   }
 
+  const navigate = useNavigate();
+
   const handleEdit = (id) => {
-    // TODO: Routing to editor's page
-    alert("Routing:\n" + baseURL + id);
+    navigate("/task/" + id);
   }
 
   const addTask = (userInput) => {
