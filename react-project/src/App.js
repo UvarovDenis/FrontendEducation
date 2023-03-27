@@ -24,7 +24,7 @@ function App() {
   }
 
   const completeTask = (id) => {
-    let url = baseURL + id
+    const url = baseURL + id
     let status = todoList.find(task => { return task.id == id; }).completed
     axios.put(url, { completed: !status })
       .then((response) => {
@@ -38,7 +38,7 @@ function App() {
   }
 
   const addNewTask = (name) => {
-    let url = baseURL + "add"
+    const url = baseURL + "add"
     axios.post(url, { todo: name, completed: false, userId: userId })
       .then((response) => {
         let created = response.data
@@ -73,7 +73,6 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <button onClick={() => navigate("about")}>About</button>
       <Form addTask={addTask} />
       <ul>
         {todoList.map(todo => {
